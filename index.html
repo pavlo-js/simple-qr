@@ -7,15 +7,34 @@
     <!-- Include the QRCode.js library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            margin-top: 40px;
+        }
+
         #qrcode {
             margin: 20px auto;
             text-align: center;
+        }
+
+        input {
+            width: 300px;
+            padding: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            margin: 10px;
+            padding: 8px 16px;
+            font-size: 16px;
+            cursor: pointer;
         }
     </style>
 </head>
 
 <body>
-    <h2>Pavlo Dovbysh QR-generator</h2>
+    <h2>Simple QR-generator by Pavlo</h2>
 
     <label for="data">Enter your data:</label>
     <input type="text" id="data" placeholder="Enter a URL or text">
@@ -35,8 +54,8 @@
             }
             qrcode = new QRCode(document.getElementById("qrcode"), {
                 text: data,
-                width: 128,
-                height: 128,
+                width: 1024,   
+                height: 1024, 
                 colorDark: "#000000",
                 colorLight: "#ffffff",
                 correctLevel: QRCode.CorrectLevel.H
@@ -44,17 +63,16 @@
         }
 
         function downloadQRCode() {
-            const img = document.querySelector('img');
-            if (!img) return
-            const a = document.createElement("a"); //Create <a>
-            a.href = img.getAttribute('src'); //Image Base64 Goes here
-            a.download = "Image.png"; //File name Here
+            const img = document.querySelector('#qrcode img');
+            if (!img) return;
+            const a = document.createElement("a");
+            a.href = img.getAttribute('src');
+            a.download = "QR_Code.png";
             a.click();
         }
 
         document.getElementById('generate').addEventListener('click', generateQRCode);
         document.getElementById('download').addEventListener('click', downloadQRCode);
-
     </script>
 </body>
 
