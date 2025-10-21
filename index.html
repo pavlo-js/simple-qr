@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>QR Code Generator</title>
+    <!-- Include the QRCode.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        #qrcode {
+            margin: 20px auto;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Pavlo Dovbysh QR-generator</h2>
+
+    <label for="data">Enter your data:</label>
+    <input type="text" id="data" placeholder="Enter a URL or text">
+    <button id="generate">Generate QR Code</button>
+    <div id="qrcode"></div>
+    <button id="download">Download</button>
+
+    <script>
+        var qrcode;
+
+        // Function to generate a new QR code based on user input
+        function generateQRCode() {
+            var data = document.getElementById('data').value;
+            if (qrcode) {
+                // Clear the previous QR code
+                document.getElementById('qrcode').innerHTML = "";
+            }
+            qrcode = new QRCode(document.getElementById("qrcode"), {
+                text: data,
+                width: 128,
+                height: 128,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        }
+
+        function downloadQRCode() {
+            const img = document.querySelector('img');
+            if (!img) return
+            const a = document.createElement("a"); //Create <a>
+            a.href = img.getAttribute('src'); //Image Base64 Goes here
+            a.download = "Image.png"; //File name Here
+            a.click();
+        }
+
+        document.getElementById('generate').addEventListener('click', generateQRCode);
+        document.getElementById('download').addEventListener('click', downloadQRCode);
+
+    </script>
+</body>
+
+</html>
